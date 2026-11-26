@@ -1,0 +1,103 @@
+{
+  "rooms": [
+    "R1",
+    "R2"
+  ],
+  "slots": [
+    {
+      "id": "MON_09",
+      "day": "Monday",
+      "start_time": "09:00",
+      "end_time": "11:00"
+    },
+    {
+      "id": "MON_13",
+      "day": "Monday",
+      "start_time": "13:00",
+      "end_time": "15:00"
+    }
+  ],
+  "exams": [
+    {
+      "id": "E1",
+      "subject": "Quantum Computing",
+      "student_groups": [
+        "G1",
+        "G2"
+      ],
+      "teacher": "Teacher A",
+      "allowed_slots": [
+        "MON_09",
+        "MON_13"
+      ],
+      "allowed_rooms": [
+        "R1",
+        "R2"
+      ],
+      "unavailable_slots": [
+        "MON_13"
+      ],
+      "slot_penalties": {
+        "MON_09": 0,
+        "MON_13": 5
+      },
+      "room_penalties": {
+        "R1": 0,
+        "R2": 1
+      }
+    },
+    {
+      "id": "E2",
+      "subject": "Machine Learning",
+      "student_groups": [
+        "G1",
+        "G3"
+      ],
+      "teacher": "Teacher B",
+      "allowed_slots": [
+        "MON_09",
+        "MON_13"
+      ],
+      "allowed_rooms": [
+        "R1",
+        "R2"
+      ],
+      "unavailable_slots": [],
+      "slot_penalties": {
+        "MON_09": 4,
+        "MON_13": 0
+      },
+      "room_penalties": {
+        "R1": 0,
+        "R2": 1
+      }
+    },
+    {
+      "id": "E3",
+      "subject": "Data Science",
+      "student_groups": [
+        "G4"
+      ],
+      "teacher": "Teacher A",
+      "allowed_slots": [
+        "MON_09",
+        "MON_13"
+      ],
+      "allowed_rooms": [
+        "R1",
+        "R2"
+      ],
+      "unavailable_slots": [
+        "MON_09"
+      ],
+      "slot_penalties": {
+        "MON_09": 5,
+        "MON_13": 0
+      },
+      "room_penalties": {
+        "R1": 1,
+        "R2": 0
+      }
+    }
+  ]
+}
