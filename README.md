@@ -2,6 +2,18 @@
 
 Local project setup for the Python/FastAPI backend and the React/TypeScript frontend. The example page reads the shared demo case from FastAPI.
 
+## Run with Docker Compose
+
+Start Docker Desktop or another Docker Engine with Compose. From this directory, build and start both services:
+
+```bash
+docker compose up --build
+```
+
+Open the [web app](http://localhost:5173) and [API docs](http://localhost:8000/docs). The frontend forwards `/api` requests to the backend inside Compose. Both ports are exposed on localhost. Re-run the build command after changing the source.
+
+Stop the services with `docker compose down`.
+
 ## Run locally
 
 Use Python 3.12 or newer, uv, and Node.js 20.19+ or 22.12+ from a supported release line.

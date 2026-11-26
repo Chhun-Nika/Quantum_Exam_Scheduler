@@ -1,0 +1,11 @@
+.git/
+.venv/
+.env*
+**/__pycache__/
+**/*.py[cod]
+*.egg-info/
+frontend/
+docs/
+experiments/
+tests/
+.DS_Store

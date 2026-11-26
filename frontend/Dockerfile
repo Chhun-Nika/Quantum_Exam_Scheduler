@@ -1,0 +1,15 @@
+FROM node:22-bookworm-slim
+
+WORKDIR /app
+RUN chown node:node /app
+USER node
+
+COPY --chown=node:node package.json package-lock.json ./
+RUN npm ci --no-audit --no-fund
+
+COPY --chown=node:node index.html tsconfig.json vite.config.ts ./
+COPY --chown=node:node src/ src/
+RUN npm run build
+
+EXPOSE 5173
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "5173", "--strictPort"]
