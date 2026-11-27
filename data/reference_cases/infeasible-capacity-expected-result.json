@@ -1,0 +1,11 @@
+{
+  "outcome": "infeasible_proven",
+  "assignments": null,
+  "optimality_proven": null,
+  "validation": null,
+  "score": null,
+  "reason": {
+    "code": "no_eligible_room_with_sufficient_capacity",
+    "message": "E1 has 35 students, but its only eligible room R1 has capacity 30. No valid room assignment exists."
+  }
+}

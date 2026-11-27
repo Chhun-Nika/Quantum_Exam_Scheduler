@@ -26,7 +26,7 @@ class SoftScoringTest(TestCase):
     def test_hand_calculated_component_scores_and_weighted_total(self) -> None:
         score = score_soft_constraints(
             CASE,
-            {+
+            {
                 "E1": {"slot_id": "MON_09", "room_id": "SMALL"},
                 "E2": {"slot_id": "MON_13", "room_id": "LARGE"},
                 "E3": {"slot_id": "TUE_09", "room_id": "LARGE"},

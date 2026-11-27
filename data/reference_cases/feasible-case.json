@@ -1,0 +1,41 @@
+{
+  "id": "feasible-two-session-case",
+  "exams": [
+    {
+      "id": "E1",
+      "subject": "Quantum Computing",
+      "student_group_ids": ["G1", "G2"],
+      "teacher_id": "T1",
+      "headcount": 30,
+      "allowed_room_ids": ["R1"]
+    },
+    {
+      "id": "E2",
+      "subject": "Machine Learning",
+      "student_group_ids": ["G1"],
+      "teacher_id": "T1",
+      "headcount": 20,
+      "allowed_room_ids": ["R2"]
+    }
+  ],
+  "student_groups": [
+    {"id": "G1", "student_count": 20},
+    {"id": "G2", "student_count": 10}
+  ],
+  "teachers": [
+    {"id": "T1", "preferred_slot_ids": ["MON_09"]}
+  ],
+  "rooms": [
+    {"id": "R1", "capacity": 40, "available_slot_ids": ["MON_09"]},
+    {"id": "R2", "capacity": 25, "available_slot_ids": ["MON_11"]}
+  ],
+  "slots": [
+    {"id": "MON_09", "day": "Monday", "start_time": "09:00", "end_time": "11:00"},
+    {"id": "MON_11", "day": "Monday", "start_time": "11:00", "end_time": "13:00"}
+  ],
+  "soft_objectives": {
+    "s1": {"enabled": true, "weight": 1},
+    "s2": {"enabled": true, "weight": 1},
+    "s3": {"enabled": true, "weight": 1}
+  }
+}

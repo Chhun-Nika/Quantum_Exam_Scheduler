@@ -38,12 +38,15 @@ def score_soft_constraints(
 ) -> SoftScore:
     """Score a complete timetable against the three shared soft constraints.
 
-    ``case`` contains ``exams``, ``rooms``, and ``slots``.  A timetable may be
+    ``case`` contains ``exams``, ``rooms``, and ``slots``. It accepts the shared
+    session-format names ``student_group_ids``, ``teacher_id``, and ``headcount``
+    as well as the original internal aliases. A timetable may be
     either ``{exam_id: {slot_id, room_id}}`` or a list of assignment objects
     containing ``exam_id``, ``slot_id``, and ``room_id``.  Invalid or incomplete
     schedules are deliberately rejected here: hard-constraint validation belongs
     to the shared validator, while this scorer only evaluates valid schedules.
     """
+    case = _normalise_case(case)
     resolved_weights = _resolve_weights(weights)
     exams = _index_by_id(case.get("exams", []), "exam")
     rooms = _index_by_id(case.get("rooms", []), "room")
@@ -64,6 +67,33 @@ def score_soft_constraints(
         + resolved_weights["s3"] * s3
     )
     return SoftScore(s1, s2, s3, total, resolved_weights)
+
+
+def _normalise_case(case: Mapping[str, Any]) -> dict[str, Any]:
+    """Adapt the documented shared case format to the scorer's internal names."""
+    normalised = dict(case)
+    normalised_exams: list[dict[str, Any]] = []
+    for exam in case.get("exams", []):
+        if not isinstance(exam, Mapping):
+            normalised_exams.append(exam)
+            continue
+        normalised_exam = dict(exam)
+        if "student_groups" not in normalised_exam and "student_group_ids" in normalised_exam:
+            normalised_exam["student_groups"] = normalised_exam["student_group_ids"]
+        if "teacher" not in normalised_exam and "teacher_id" in normalised_exam:
+            normalised_exam["teacher"] = normalised_exam["teacher_id"]
+        if "enrollment" not in normalised_exam and "headcount" in normalised_exam:
+            normalised_exam["enrollment"] = normalised_exam["headcount"]
+        normalised_exams.append(normalised_exam)
+    normalised["exams"] = normalised_exams
+
+    if "teacher_preferences" not in normalised:
+        normalised["teacher_preferences"] = {
+            teacher["id"]: teacher["preferred_slot_ids"]
+            for teacher in case.get("teachers", [])
+            if isinstance(teacher, Mapping) and teacher.get("preferred_slot_ids")
+        }
+    return normalised
 
 
 def _resolve_weights(weights: Mapping[str, float] | None) -> dict[str, float]:

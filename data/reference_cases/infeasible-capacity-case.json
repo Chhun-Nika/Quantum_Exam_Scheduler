@@ -1,0 +1,31 @@
+{
+  "id": "infeasible-capacity-case",
+  "exams": [
+    {
+      "id": "E1",
+      "subject": "Quantum Computing",
+      "student_group_ids": ["G1"],
+      "teacher_id": "T1",
+      "headcount": 35,
+      "allowed_room_ids": ["R1"]
+    }
+  ],
+  "student_groups": [
+    {"id": "G1", "student_count": 35}
+  ],
+  "teachers": [
+    {"id": "T1", "available_slot_ids": ["MON_09", "MON_11"]}
+  ],
+  "rooms": [
+    {"id": "R1", "capacity": 30, "available_slot_ids": ["MON_09", "MON_11"]}
+  ],
+  "slots": [
+    {"id": "MON_09", "day": "Monday", "start_time": "09:00", "end_time": "11:00"},
+    {"id": "MON_11", "day": "Monday", "start_time": "11:00", "end_time": "13:00"}
+  ],
+  "soft_objectives": {
+    "s1": {"enabled": true, "weight": 1},
+    "s2": {"enabled": true, "weight": 1},
+    "s3": {"enabled": true, "weight": 1}
+  }
+}
