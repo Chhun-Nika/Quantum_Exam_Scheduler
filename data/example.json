@@ -1,103 +1,47 @@
-{
-  "rooms": [
-    "R1",
-    "R2"
-  ],
-  "slots": [
-    {
-      "id": "MON_09",
-      "day": "Monday",
-      "start_time": "09:00",
-      "end_time": "11:00"
-    },
-    {
-      "id": "MON_13",
-      "day": "Monday",
-      "start_time": "13:00",
-      "end_time": "15:00"
-    }
-  ],
+ {
   "exams": [
     {
-      "id": "E1",
+      "id": "QC_FINAL",
       "subject": "Quantum Computing",
-      "student_groups": [
-        "G1",
-        "G2"
-      ],
-      "teacher": "Teacher A",
-      "allowed_slots": [
-        "MON_09",
-        "MON_13"
-      ],
-      "allowed_rooms": [
-        "R1",
-        "R2"
-      ],
-      "unavailable_slots": [
-        "MON_13"
-      ],
-      "slot_penalties": {
-        "MON_09": 0,
-        "MON_13": 5
-      },
-      "room_penalties": {
-        "R1": 0,
-        "R2": 1
-      }
+      "student_group_ids": ["G1", "G2"],
+      "teacher_id": "TA",
+      "headcount": 60
     },
     {
-      "id": "E2",
+      "id": "ML_FINAL",
       "subject": "Machine Learning",
-      "student_groups": [
-        "G1",
-        "G3"
-      ],
-      "teacher": "Teacher B",
-      "allowed_slots": [
-        "MON_09",
-        "MON_13"
-      ],
-      "allowed_rooms": [
-        "R1",
-        "R2"
-      ],
-      "unavailable_slots": [],
-      "slot_penalties": {
-        "MON_09": 4,
-        "MON_13": 0
-      },
-      "room_penalties": {
-        "R1": 0,
-        "R2": 1
-      }
+      "student_group_ids": ["G1"],
+      "teacher_id": "TB",
+      "headcount": 30
     },
     {
-      "id": "E3",
+      "id": "DS_FINAL",
       "subject": "Data Science",
-      "student_groups": [
-        "G4"
-      ],
-      "teacher": "Teacher A",
-      "allowed_slots": [
-        "MON_09",
-        "MON_13"
-      ],
-      "allowed_rooms": [
-        "R1",
-        "R2"
-      ],
-      "unavailable_slots": [
-        "MON_09"
-      ],
-      "slot_penalties": {
-        "MON_09": 5,
-        "MON_13": 0
-      },
-      "room_penalties": {
-        "R1": 1,
-        "R2": 0
-      }
+      "student_group_ids": ["G2"],
+      "teacher_id": "TA",
+      "headcount": 30
     }
-  ]
+  ],
+  "student_groups": [
+    {"id": "G1", "student_count": 30},
+    {"id": "G2", "student_count": 30}
+  ],
+  "teachers": [
+    {"id": "TA", "name": "Teacher A", "preferred_slot_ids": ["MON_09", "TUE_09"]},
+    {"id": "TB", "name": "Teacher B", "preferred_slot_ids": ["MON_13"]}
+  ],
+  "rooms": [
+    {"id": "R60", "capacity": 60},
+    {"id": "R75", "capacity": 75}
+  ],
+  "slots": [
+    {"id": "MON_09", "day": "Monday", "start_time": "09:00", "end_time": "11:00"},
+    {"id": "MON_13", "day": "Monday", "start_time": "13:00", "end_time": "15:00"},
+    {"id": "TUE_09", "day": "Tuesday", "start_time": "09:00", "end_time": "11:00"}
+  ],
+  "soft_objectives": {
+    "s1": {"enabled": true, "weight": 1},
+    "s2": {"enabled": true, "weight": 1},
+    "s3": {"enabled": true, "weight": 1}
+  }
 }

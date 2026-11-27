@@ -3,8 +3,8 @@ import './styles.css'
 
 type ExampleCase = {
   exams: { id: string; subject: string }[]
-  rooms: string[]
-  slots: { id: string }[]
+  rooms: { id: string; capacity: number }[]
+  slots: { id: string; day: string; start_time: string; end_time: string }[]
 }
 
 export function App() {
