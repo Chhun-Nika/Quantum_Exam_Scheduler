@@ -1,0 +1,17 @@
+{
+  "outcome": "feasible",
+  "assignments": [
+    {"exam_id": "E1", "slot_id": "MON_09", "room_id": "R1"},
+    {"exam_id": "E2", "slot_id": "MON_11", "room_id": "R2"}
+  ],
+  "optimality_proven": true,
+  "validation": {"hard_violation_count": 0, "violations": []},
+  "score": {
+    "total": 2.225,
+    "components": {
+      "s1": {"value": 1, "enabled": true, "weight": 1},
+      "s2": {"value": 0.225, "enabled": true, "weight": 1},
+      "s3": {"value": 1, "enabled": true, "weight": 1}
+    }
+  }
+}
