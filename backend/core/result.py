@@ -5,7 +5,7 @@ from pydantic import Field, JsonValue, StrictBool, StringConstraints, model_vali
 from backend.core.case import ContractModel, Identifier, NonnegativeWeight, ObjectiveSetting, PositiveCount
 
 SolverMethod = Literal["exact_search", "cp_sat", "qaoa", "vqe"]
-RunState = Literal["queued", "running", "completed", "timed_out", "failed", "skipped"]
+RunState = Literal["queued", "running", "completed", "timed_out", "cancelled", "failed", "skipped"]
 SchedulingOutcome = Literal["feasible", "infeasible_proven", "no_feasible_found"]
 HardRule = Literal["HC1", "HC2", "HC3", "HC4", "HC5", "HC6", "HC7"]
 NonnegativeCount = Annotated[int, Field(strict=True, ge=0)]
@@ -132,6 +132,25 @@ class RunProgress(ContractModel):
     max_iterations: PositiveCount | None = None
 
 
+class SearchStatistics(ContractModel):
+    total_candidates: NonnegativeCount
+    checked_candidates: NonnegativeCount
+    feasible_candidates: NonnegativeCount
+    infeasible_candidates: NonnegativeCount
+    search_completed: StrictBool
+    search_elapsed_ms: NonnegativeWeight | None = None
+
+    @model_validator(mode="after")
+    def check_counts(self) -> Self:
+        if self.checked_candidates != self.feasible_candidates + self.infeasible_candidates:
+            raise ValueError("Checked candidates must equal feasible plus infeasible candidates")
+        if self.checked_candidates > self.total_candidates:
+            raise ValueError("Checked candidates cannot exceed total candidates")
+        if self.search_completed and self.checked_candidates != self.total_candidates:
+            raise ValueError("A completed search must check every candidate")
+        return self
+
+
 class SolverRun(ContractModel):
     run_id: Identifier
     method: SolverMethod
@@ -140,13 +159,14 @@ class SolverRun(ContractModel):
     result: SolverResult | None
     progress: RunProgress | None = None
     reason: RunReason | None = None
+    search_statistics: SearchStatistics | None = None
 
     @model_validator(mode="after")
     def check_state(self) -> Self:
         if (self.state in {"queued", "skipped"}) != (self.elapsed_ms is None):
             raise ValueError("Elapsed time must be null only for queued or skipped runs")
-        if (self.state in {"completed", "timed_out"}) != (self.result is not None):
-            raise ValueError("A result is required only for completed or timed-out runs")
-        if self.state in {"failed", "skipped", "timed_out"} and self.reason is None:
-            raise ValueError("A reason is required for failed, skipped, or timed-out runs")
+        if (self.state in {"completed", "timed_out", "cancelled"}) != (self.result is not None):
+            raise ValueError("A result is required only for completed, timed-out or cancelled runs")
+        if self.state in {"failed", "skipped", "timed_out", "cancelled"} and self.reason is None:
+            raise ValueError("A reason is required for failed, skipped, timed-out or cancelled runs")
         return self
