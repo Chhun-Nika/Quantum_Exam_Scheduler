@@ -1,0 +1,17 @@
+{
+  "exams": [
+    {"id": "QC", "subject": "Quantum Computing", "student_group_ids": ["G1"], "teacher_id": "T1", "headcount": 30},
+    {"id": "ML", "subject": "Machine Learning", "student_group_ids": ["G1"], "teacher_id": "T2", "headcount": 30}
+  ],
+  "student_groups": [{"id": "G1", "student_count": 30}],
+  "teachers": [
+    {"id": "T1", "preferred_slot_ids": ["MON_09"]},
+    {"id": "T2", "preferred_slot_ids": ["TUE_09"]}
+  ],
+  "rooms": [{"id": "R1", "capacity": 30}, {"id": "R2", "capacity": 60}],
+  "slots": [
+    {"id": "MON_09", "day": "Monday", "start_time": "09:00", "end_time": "11:00"},
+    {"id": "MON_13", "day": "Monday", "start_time": "13:00", "end_time": "15:00"},
+    {"id": "TUE_09", "day": "Tuesday", "start_time": "09:00", "end_time": "11:00"}
+  ]
+}
